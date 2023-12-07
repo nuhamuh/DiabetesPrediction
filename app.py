@@ -24,11 +24,16 @@ def diabetes_prediction(input_data):
     else:
       return 'Pasien ini menderita diabetes'
 
-
-    
 def bar_chart(data, x_column, y_column):
     st.set_option('deprecation.showPyplotGlobalUse', False)
     plt.bar(data[x_column], data[y_column])
+    plt.xlabel(x_column)
+    plt.ylabel(y_column)
+    st.pyplot()
+    
+def scatter_plot(data, x_column, y_column):
+    st.set_option('deprecation.showPyplotGlobalUse', False)
+    plt.scatter(data[x_column], data[y_column])
     plt.xlabel(x_column)
     plt.ylabel(y_column)
     st.pyplot()
@@ -50,9 +55,13 @@ def main():
       df = pd.read_csv('diabetes.csv')
       st.dataframe(df)
       st.markdown("<h4 style='text-align: center; color: black;'><br>Chart Bar<br></h4>", unsafe_allow_html=True)
-      x_column = "Age"
-      y_column = "DiabetesPedigreeFunction"
-      bar_chart(df, x_column, y_column)
+      column1 = "Age"
+      column2 = "DiabetesPedigreeFunction"
+      bar_chart(df, column1, column2)
+      st.markdown("<h4 style='text-align: center; color: black;'><br>Scatter Plot<br></h4>", unsafe_allow_html=True)
+      x_column = "Glucose"
+      y_column = "Outcome"
+      scatter_plot(df, x_column, y_column)
 
 
     elif app_mode == 'Prediction':  
